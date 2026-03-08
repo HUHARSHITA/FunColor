@@ -1,0 +1,224 @@
+:root {
+    --bg-dark: #0f172a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --accent: #8b5cf6;
+    --text: #f1f5f9;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    color: var(--text);
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top-bar {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.game-container {
+    width: 95%;
+    max-width: 1100px;
+    margin-top: 30px;
+}
+
+/* Horizontal Layout */
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr; /* Stacked panels for focus */
+    gap: 20px;
+}
+
+@media (min-width: 900px) {
+    .main-layout { grid-template-columns: 2fr 1fr; }
+}
+
+.game-board, .history-panel {
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 25px;
+}
+
+/* Big Horizontal Color Slots */
+.color-slots {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 40px 0;
+    padding: 20px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 15px;
+}
+
+.color-tile {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%; /* Back to circular vibes */
+    cursor: grab;
+    border: 3px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
+}
+
+.color-tile:active { transform: scale(1.1); cursor: grabbing; }
+
+/* Buttons & Text */
+
+.action-zone { margin-top: 20px; }
+#submit-guess {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    border-radius: 50px;
+}
+
+.feedback-msg {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+/* Update your existing modal styles to this */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.9); /* Dark overlay */
+    display: none; /* JS will change this to 'flex' */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999; /* Higher than everything else */
+}
+
+.modal-content {
+    background: #1e293b;
+    padding: 3rem;
+    border-radius: 24px;
+    text-align: center;
+    border: 2px solid var(--accent);
+    box-shadow: 0 0 50px rgba(139, 92, 246, 0.4);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.win-title {
+    font-size: 2rem;
+    color: #00E676; /* Success Green */
+    margin-bottom: 10px;
+}
+/* --- UPDATED BUTTON STYLES ONLY --- */
+button {
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: inherit;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: white;
+    background: linear-gradient(135deg, #6366f1, #a855f7); /* Vibrant Purple/Indigo Gradient */
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button:disabled {
+    background: #475569;
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Specific styling for the Submit button to keep your existing size but use the new vibe */
+#submit-guess {
+    font-size: 1.2rem;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #06b6d4, #3b82f6); /* Distinct Blue/Cyan for Check */
+    border-radius: 50px;
+}
+
+/* Emoji/Icon buttons (like Music) should stay transparent */
+.icon-emoji-btn {
+    background: transparent;
+    box-shadow: none;
+    font-size: 1.5rem;
+}
+
+.icon-emoji-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+}
+/* --- STYLING THE DIFFICULTY SELECT --- */
+select {
+    background: var(--glass); /* Using your existing glass variable */
+    color: var(--text);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none; /* Removes the default arrow in some browsers */
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e"); /* Adds a custom white arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 40px; /* Space for the arrow */
+}
+
+select:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent); /* Glows with your accent color */
+}
+
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Styling the actual options inside the dropdown */
+option {
+    background-color: #1e293b; /* Matches your dark background */
+    color: white;
+    padding: 10px;
+}
+
+/* Adding space between the Label and the Select */
+label[for="difficulty"] {
+    margin-right: 12px;
+    font-weight: 600;
+    color: var(--text);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}

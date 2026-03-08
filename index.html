@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Color</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="bg.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="top-bar">
+        <div class="audio-controls">
+            <button id="toggle-music" class="icon-emoji-btn">🔈</button>
+            <input type="range" id="volume-control" min="0" max="1" step="0.1" value="0.5">
+        </div>
+        <h1 class="game-logo">✨ Fun Color ✨</h1>
+    </div>
+
+    <div class="game-container">
+        <section class="setup-area">
+            <div class="glass-card controls">
+                <div class="control-item">
+                    <label>Level:</label>
+                    <select id="difficulty">
+                        <option value="4">4 Colors</option>
+                        <option value="5">5 Colors</option>
+                        <option value="6">6 Colors</option>
+                    </select>
+                </div>
+                <button id="start-btn" class="btn-primary">New Game</button>
+            </div>
+        </section>
+
+        <main class="main-layout">
+            <div class="game-board glass-card">
+                <div class="attempts-badge">Attempts: <span id="attempt-count">0</span></div>
+                
+                <div id="guess-container" class="color-slots">
+                    </div>
+
+                <div class="action-zone">
+                    <button id="submit-guess" class="btn-submit" disabled>Check Sequence</button>
+                    <p id="feedback" class="feedback-msg"></p>
+                </div>
+            </div>
+
+            <aside class="history-panel glass-card">
+                <h3>Guess History</h3>
+                <div class="history-table-wrapper">
+                    <table id="history-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Sequence</th>
+                                <th>Correct</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-body"></tbody>
+                    </table>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <div id="win-modal" class="modal">
+        <div class="modal-content glass-card">
+            <h2 class="win-title">🎉 You Did It!</h2>
+            <p id="win-message"></p>
+            <button class="btn-primary" onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
